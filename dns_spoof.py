@@ -7,6 +7,7 @@
 
 # To run this as man in the middle execute command
 # iptables -I FORWARD -j NFQUEUE --queue-num 0
+# !! DISCLAIMER: This app doesn't create a man in the middle, you need an arp spoofer running !!
 
 # -------------AFTER QUITTING THIS APP-------------
 # When you are done execute command
@@ -47,8 +48,8 @@ def process_packet(packet):
             del scapy_packet[scapy.UDP].len
 
             packet.set_payload(bytes(scapy_packet))  # change the original payload of the packet with the modified one
-    packet.accept()  # allow to forward the packet to it's destination
-    # packet.drop()  # deny to forward the packet to it's destination
+    packet.accept()  # allow forwarding the packet to it's destination
+    # packet.drop()  # deny forwarding the packet to it's destination
 
 
 options = get_arguments()
